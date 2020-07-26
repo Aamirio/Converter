@@ -26,6 +26,13 @@ public class NumberExtractorTest {
         assertNumber("The number 30 is a round double digit.", "thirty");
     }
 
+    @Test
+    public void shouldReturnTripleDigitNumber_whenTextContainsTripleDigitNumber() {
+        assertNumber("The number 511 is triple digit.", "five hundred and eleven");
+        assertNumber("The number 601 is triple digit.", "six hundred and one");
+        assertNumber("The number 500 is a round triple digit.", "five hundred");
+    }
+
     private void assertNumber(String inputText, String expectedOutput) {
         assertThat(numberExtractor.extract(inputText)).isEqualTo(expectedOutput);
     }

@@ -34,10 +34,29 @@ public class NumberExtractor implements Extractor {
         text = text.trim().replaceFirst("^0+(?!$)", "");
 
         switch (text.length()) {
+            case  3: return getValueForHundreds(text);
             case  2: return getValueForTens(text);
             case  1: return getValueForOnes(text);
             default: return "";
         }
+    }
+
+    private String getValueForHundreds(String text) {
+
+        final StringBuilder stringBuilder = new StringBuilder();
+
+        if (!text.startsWith("0")) {
+            stringBuilder.append(getValueForOnes(text.substring(0,1)));
+            stringBuilder.append(" hundred");
+        }
+
+        if (text.substring(1, 3).equals("00")) { return stringBuilder.toString(); }
+
+        if (!text.startsWith("0")) { stringBuilder.append(" and "); }
+
+        stringBuilder.append(getValueForTens(text.substring(1, 3)));
+
+        return stringBuilder.toString();
     }
 
     private String getValueForTens(String text) {
