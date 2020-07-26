@@ -1,10 +1,10 @@
 Converter
 ------------------------------------------------------------------------------------------------------------------------
-###How to open project in Intellij
+### How to open project in Intellij
 
 1) Click on File -> New -> Project from existing sources -> double-click on pom.xml in NumberWordConverter directory
 ------------------------------------------------------------------------------------------------------------------------
-###How to run the Converter application
+### How to run the Converter application
 
 1) In your terminal/command console use command `mvn clean package` to create an executable jar of the application
 
@@ -16,7 +16,7 @@ Converter
     * To convert the numbers in a file to words provide the file path (e.g. /Users/Bob/Docs/myFile.txt) and hit Enter
     * To quit program Hit 'Q' and hit Enter
 ------------------------------------------------------------------------------------------------------------------------
-###Design choices
+### Design choices
 
 This program follows the single responsibility principle along with loose coupling of key classes. These are the roles of the following 
 classes: 
