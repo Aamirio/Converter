@@ -99,6 +99,34 @@ public class NumberExtractorTest {
                 "one hundred and eleven million");
     }
 
+    @Test
+    public void shouldReturnTenDigitNumber_whenTextContainsTenDigitNumber() {
+        assertNumber("The number 8931121233 is ten digit.",
+                "eight billion, nine hundred and thirty-one million, one hundred and twenty-one thousand, two hundred and thirty-three");
+        assertNumber("The number 9111000000 is ten digit.",
+                "nine billion, one hundred and eleven million");
+    }
+
+    @Test
+    public void shouldReturnElevenDigitNumber_whenTextContainsElevenDigitNumber() {
+        assertNumber("The number 88931121233 is eleven digit.",
+                "eighty-eight billion, nine hundred and thirty-one million, one hundred and twenty-one thousand, two hundred and thirty-three");
+        assertNumber("The number 10000021011 is eleven digit.",
+                "ten billion, twenty-one thousand and eleven");
+        assertNumber("The number 10000000011 is eleven digit.",
+                "ten billion and eleven");
+        assertNumber("The number 10000000000 is an eleven digit round number.",
+                "ten billion");
+    }
+
+    @Test
+    public void shouldReturnTwelveDigitNumber_whenTextContainsTwelveDigitNumber() {
+        assertNumber("The number 788931121233 is twelve digit.",
+                "seven hundred and eighty-eight billion, nine hundred and thirty-one million, one hundred and twenty-one thousand, two hundred and thirty-three");
+        assertNumber("The number 300000000000 is twelve digit round number.",
+                "three hundred billion");
+    }
+
     private void assertNumber(String inputText, String expectedOutput) {
         assertThat(numberExtractor.extract(inputText)).isEqualTo(expectedOutput);
     }
