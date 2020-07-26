@@ -33,6 +33,38 @@ public class NumberExtractorTest {
         assertNumber("The number 500 is a round triple digit.", "five hundred");
     }
 
+    @Test
+    public void shouldReturnFourDigitNumber_whenTextContainsFourDigitNumber() {
+        assertNumber("The number 4300 is four digit.", "four thousand, three hundred");
+        assertNumber("The number 4012 is four digit.", "four thousand and twelve");
+        assertNumber("The number 4001 is four digit.", "four thousand and one");
+        assertNumber("The number 9000 is round four digit number.", "nine thousand");
+    }
+
+    @Test
+    public void shouldReturnFiveDigitNumber_whenTextContainsFiveDigitNumber() {
+        assertNumber("The number 12113 is five digit.", "twelve thousand, one hundred and thirteen");
+        assertNumber("The number 12013 is five digit.", "twelve thousand and thirteen");
+        assertNumber("The number 12003 is five digit.", "twelve thousand and three");
+        assertNumber("The number 13000 is a round five digit number.", "thirteen thousand");
+    }
+
+    @Test
+    public void shouldReturnSixDigitNumber_whenTextContainsSixDigitNumber() {
+        assertNumber("The number 121230 is six digit.",
+                "one hundred and twenty-one thousand, two hundred and thirty");
+        assertNumber("The number 121230 is six digit.",
+                "one hundred and twenty-one thousand, two hundred and thirty");
+        assertNumber("The number 101111 is a six digit number.",
+                "one hundred and one thousand, one hundred and eleven");
+        assertNumber("The number 100111 is a six digit number.",
+                "one hundred thousand, one hundred and eleven");
+        assertNumber("The number 100011 is a six digit number.",
+                "one hundred thousand and eleven");
+        assertNumber("The number 100000 is a round six digit number.",
+                "one hundred thousand");
+    }
+
     private void assertNumber(String inputText, String expectedOutput) {
         assertThat(numberExtractor.extract(inputText)).isEqualTo(expectedOutput);
     }

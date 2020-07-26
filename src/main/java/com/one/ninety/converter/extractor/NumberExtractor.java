@@ -33,12 +33,41 @@ public class NumberExtractor implements Extractor {
         //Remove all leading zeros
         text = text.trim().replaceFirst("^0+(?!$)", "");
 
+        final String valueForHundreds = text.length() > 3 ? getValueForHundreds(text.substring(0, 3)) : "";
+        final String valueForTens = text.length() > 2 ? getValueForTens(text.substring(0, 2)) : "";
+        final String valueForOnes = text.length() > 1 ? getValueForOnes(text.substring(0, 1)) : "";
+
         switch (text.length()) {
+            case  6: return getValueForThousands(valueForHundreds, text.substring(3));
+            case  5: return getValueForThousands(valueForTens, text.substring(2));
+            case  4: return getValueForThousands(valueForOnes, text.substring(1));
             case  3: return getValueForHundreds(text);
             case  2: return getValueForTens(text);
             case  1: return getValueForOnes(text);
             default: return "";
         }
+    }
+
+    private String getValueForThousands(String thousands, String hundreds) {
+
+        final StringBuilder stringBuilder = new StringBuilder();
+        final String valueForHundreds = getValueForHundreds(hundreds);
+
+        if (!thousands.isEmpty()) {
+            stringBuilder.append(thousands);
+            stringBuilder.append(" thousand");
+        }
+
+        if (hundreds.equals("000")) { return stringBuilder.toString(); }
+
+        if (valueForHundreds.contains("hundred")) {
+            stringBuilder.append( !thousands.isEmpty() ? ", " : "");
+        }
+        else { stringBuilder.append( " and "); }
+
+        stringBuilder.append(valueForHundreds);
+
+        return stringBuilder.toString();
     }
 
     private String getValueForHundreds(String text) {
