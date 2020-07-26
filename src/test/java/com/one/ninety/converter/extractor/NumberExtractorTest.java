@@ -127,6 +127,16 @@ public class NumberExtractorTest {
                 "three hundred billion");
     }
 
+    @Test
+    public void shouldReturnZero_whenTextContainsMultipleZeros() {
+        assertNumber("The number 000000000000 is essentially nada.", "zero");
+    }
+
+    @Test
+    public void shouldReturnNumberInvalidMessage_whenTextContainsInvalidNumber() {
+        assertNumber("My zip code is #65678", "number invalid");
+    }
+
     private void assertNumber(String inputText, String expectedOutput) {
         assertThat(numberExtractor.extract(inputText)).isEqualTo(expectedOutput);
     }
