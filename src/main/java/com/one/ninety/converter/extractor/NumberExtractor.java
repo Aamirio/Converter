@@ -29,6 +29,10 @@ public class NumberExtractor implements Extractor {
     }
 
     private String convert(String text) {
+
+        //Remove all leading zeros
+        text = text.trim().replaceFirst("^0+(?!$)", "");
+
         final int number = Character.getNumericValue(text.charAt(0));
         return Number.getNumber(number).name;
     }
