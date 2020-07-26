@@ -65,6 +65,40 @@ public class NumberExtractorTest {
                 "one hundred thousand");
     }
 
+    @Test
+    public void shouldReturnSevenDigitNumber_whenTextContainsSevenDigitNumber() {
+        assertNumber("The number 1121233 is seven digit.",
+                "one million, one hundred and twenty-one thousand, two hundred and thirty-three");
+        assertNumber("The number 1021230 is a seven digit number.",
+                "one million, twenty-one thousand, two hundred and thirty");
+        assertNumber("The number 1001230 is a seven digit number.",
+                "one million, one thousand, two hundred and thirty");
+        assertNumber("The number 1000230 is a seven digit number.",
+                "one million, two hundred and thirty");
+        assertNumber("The number 1000030 is a seven digit number.",
+                "one million and thirty");
+        assertNumber("The number 1000000 is seven digit.",
+                "one million");
+    }
+
+    @Test
+    public void shouldReturnEightDigitNumber_whenTextContainsEightDigitNumber() {
+        assertNumber("The number 31121233 is eight digit.",
+                "thirty-one million, one hundred and twenty-one thousand, two hundred and thirty-three");
+        assertNumber("The number 11000000 is eight digit.",
+                "eleven million");
+    }
+
+    @Test
+    public void shouldReturnNineDigitNumber_whenTextContainsNineDigitNumber() {
+        assertNumber("The number 931121233 is nine digit.",
+                "nine hundred and thirty-one million, one hundred and twenty-one thousand, two hundred and thirty-three");
+        assertNumber("The number 111000022 is nine digit.",
+                "one hundred and eleven million and twenty-two");
+        assertNumber("The number 111000000 is nine digit.",
+                "one hundred and eleven million");
+    }
+
     private void assertNumber(String inputText, String expectedOutput) {
         assertThat(numberExtractor.extract(inputText)).isEqualTo(expectedOutput);
     }

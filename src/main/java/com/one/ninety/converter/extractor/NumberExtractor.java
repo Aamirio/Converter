@@ -38,6 +38,9 @@ public class NumberExtractor implements Extractor {
         final String valueForOnes = text.length() > 1 ? getValueForOnes(text.substring(0, 1)) : "";
 
         switch (text.length()) {
+            case  9: return getValueForMillions(valueForHundreds, text.substring(3));
+            case  8: return getValueForMillions(valueForTens, text.substring(2));
+            case  7: return getValueForMillions(valueForOnes, text.substring(1));
             case  6: return getValueForThousands(valueForHundreds, text.substring(3));
             case  5: return getValueForThousands(valueForTens, text.substring(2));
             case  4: return getValueForThousands(valueForOnes, text.substring(1));
@@ -46,6 +49,24 @@ public class NumberExtractor implements Extractor {
             case  1: return getValueForOnes(text);
             default: return "";
         }
+    }
+
+    private String getValueForMillions(String millions, String thousands) {
+
+        final StringBuilder stringBuilder = new StringBuilder();
+        final String valueForThousands = getValueForThousands(getValueForHundreds(thousands.substring(0, 3)), thousands.substring(3));
+
+        if (!millions.isEmpty()) {
+            stringBuilder.append(millions);
+            stringBuilder.append(" million");
+        }
+
+        if (thousands.equals("000000")) { return stringBuilder.toString(); }
+
+        if (!valueForThousands.startsWith(" and")) { stringBuilder.append(", "); }
+        stringBuilder.append(valueForThousands);
+
+        return stringBuilder.toString();
     }
 
     private String getValueForThousands(String thousands, String hundreds) {
