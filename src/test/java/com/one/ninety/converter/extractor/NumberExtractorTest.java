@@ -19,6 +19,13 @@ public class NumberExtractorTest {
         assertNumber("The number 0005 is in essence single digit.", "five");
     }
 
+    @Test
+    public void shouldReturnDoubleDigitNumber_whenTextContainsDoubleDigitNumber() {
+        assertNumber("The number 36 is double digit.", "thirty-six");
+        assertNumber("The number 11 is double digit less than twenty.", "eleven");
+        assertNumber("The number 30 is a round double digit.", "thirty");
+    }
+
     private void assertNumber(String inputText, String expectedOutput) {
         assertThat(numberExtractor.extract(inputText)).isEqualTo(expectedOutput);
     }

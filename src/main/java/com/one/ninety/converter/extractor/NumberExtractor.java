@@ -33,6 +33,33 @@ public class NumberExtractor implements Extractor {
         //Remove all leading zeros
         text = text.trim().replaceFirst("^0+(?!$)", "");
 
+        switch (text.length()) {
+            case  2: return getValueForTens(text);
+            case  1: return getValueForOnes(text);
+            default: return "";
+        }
+    }
+
+    private String getValueForTens(String text) {
+
+        final StringBuilder stringBuilder = new StringBuilder();
+        final Number number = Number.getNumber(Character.getNumericValue(text.charAt(0)) * 10);
+
+        if (text.charAt(0) == '0') { return getValueForOnes(text.substring(1)); }
+        if (text.charAt(0) == '1') { return Number.getNumber(Integer.parseInt(text)).name; }
+
+        stringBuilder.append(number.name);
+
+        if (text.charAt(1) != '0') {
+            stringBuilder.append('-');
+            stringBuilder.append(getValueForOnes(text.substring(1)));
+            return stringBuilder.toString();
+        }
+
+        return stringBuilder.toString();
+    }
+
+    private String getValueForOnes(String text) {
         final int number = Character.getNumericValue(text.charAt(0));
         return Number.getNumber(number).name;
     }
