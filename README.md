@@ -1,8 +1,13 @@
 Converter
 ------------------------------------------------------------------------------------------------------------------------
+### Purpose
+
+* Converter is a command line Java application which converts the first number in a given line of text from a file to words
+* Converter is runnable as an executable jar
+------------------------------------------------------------------------------------------------------------------------
 ### How to open project in Intellij
 
-1) Click on File -> New -> Project from existing sources -> double-click on pom.xml in Converter directory
+* Click on File -> New -> Project from existing sources -> double-click on pom.xml in Converter directory
 ------------------------------------------------------------------------------------------------------------------------
 ### How to run the Converter application
 
